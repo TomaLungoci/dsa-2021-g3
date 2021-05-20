@@ -1,0 +1,79 @@
+Turbo Assembler	 Version 3.0	    04/23/21 22:41:52	    Page 1
+lab0913.ASM
+
+
+
+      1	*000			     TIP STRUC ; pattern for parameters
+      2	*000  01*(????)		      _BP DW ?
+      3	*002  01*(????)		      _CS DW ?
+      4	*004  01*(????)		      _IP DW ?
+      5	*006  01*(????)		      N	DW ?
+      6	*008			     TIP ENDS
+      7
+      8	0000			     COD SEGMENT PARA PUBLIC 'CODE'
+      9					     PUBLIC DISPL
+     10				      ASSUME CS:COD
+     11	0000			      DISPL PROC FAR
+     12	0000  55		      PUSH BP
+     13	0001  8B EC		      MOV BP, SP
+     14	0003  52		      PUSH DX
+     15	0004  50		      PUSH AX
+     16
+     17	0005  53		      PUSH BX
+     18	0006  8B 46 06		      MOV AX,[BP].N
+     19	0009  3D 0002		      CMP AX, 2
+     20	000C  8A D0		      MOV DL, AL
+     21	000E  72 0D		      JB DISPLAY_1
+     22	0010  BB 0002		      MOV BX, 2
+     23	0013  BA 0000		      MOV DX, 0
+     24	0016  F7 F3		      DIV BX
+     25
+     26	0018  50		      PUSH AX
+     27	0019  0E E8 FFE3	      CALL FAR PTR DISPL
+     28
+     29	001D			     DISPLAY_1:
+     30	001D  80 C2 30		      ADD DL, '0' ; +’0’
+     31	0020  B4 02		      MOV AH, 02H ; Dos	function for display
+     32	0022  CD 21		      INT 21H ;	display
+     33
+     34	0024  5B		      POP BX ; restore
+     35	0025  58		      POP AX ; registers
+     36	0026  5A		      POP DX
+     37	0027  5D		      POP BP
+     38	0028  CA 0002		      RETF 2 ; FAR type	return
+     39	002B			      DISPL ENDP
+     40
+     41	002B  CA 0002		      RETF 2
+     42	002E			     COD ENDS
+     43				     END
+Turbo Assembler	 Version 3.0	    04/23/21 22:41:52	    Page 2
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "04/23/21"
+??FILENAME			  Text	 "lab0913 "
+??TIME				  Text	 "22:41:52"
+??VERSION			  Number 0300
+@CPU				  Text	 0101H
+@CURSEG				  Text	 COD
+@FILENAME			  Text	 LAB0913
+@WORDSIZE			  Text	 2
+DISPL				  Far	 COD:0000
+DISPLAY_1			  Near	 COD:001D
+
+Structure Name			  Type	Offset
+
+TIP
+ _BP				  Word	 0000
+ _CS				  Word	 0002
+ _IP				  Word	 0004
+ N				  Word	 0006
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+COD				  16  002E Para	  Public  CODE
+

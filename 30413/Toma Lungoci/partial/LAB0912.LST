@@ -1,0 +1,45 @@
+Turbo Assembler	 Version 3.0	    04/23/21 22:40:03	    Page 1
+lab0912.ASM
+
+
+
+      1
+      2
+      3	0000			     COD6 SEGMENT PARA 'CODE'
+      4				     PUBLIC SUM
+      5				     ASSUME CS:	COD6
+      6	0000			      SUM PROC FAR
+      7	0000  B8 0000		      MOV AX, 0
+      8	0003			     SUM1:
+      9	0003  02 07			     ADD AL, [BX]
+     10	0005  80 D4 00			     ADC AH, 0
+     11	0008  43			     INC BX
+     12	0009  E2 F8		     LOOP SUM1
+     13
+     14	000B  CB		      RET
+     15	000C			      SUM ENDP
+     16	000C			     COD6 ENDS
+     17				     END
+Turbo Assembler	 Version 3.0	    04/23/21 22:40:03	    Page 2
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "04/23/21"
+??FILENAME			  Text	 "lab0912 "
+??TIME				  Text	 "22:40:03"
+??VERSION			  Number 0300
+@CPU				  Text	 0101H
+@CURSEG				  Text	 COD6
+@FILENAME			  Text	 LAB0912
+@WORDSIZE			  Text	 2
+SUM				  Far	 COD6:0000
+SUM1				  Near	 COD6:0003
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+COD6				  16  000C Para	  none	  CODE
+

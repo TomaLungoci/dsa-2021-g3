@@ -1,0 +1,73 @@
+Turbo Assembler	 Version 3.0	    04/23/21 22:39:58	    Page 1
+lab0911.ASM
+
+
+
+      1				     ;Lungoci Toma
+      2	0000			     DATA SEGMENT PARA PUBLIC 'DATA'
+      3	0000  0A 05 06 11 0B	     STRING DB 10, 5, 6, 17, 11
+      4	0005  0005		     LEN DW $-STRING
+      5	0007			     DATA ENDS
+      6
+      7	0000			     MYSTACK SEGMENT PARA STACK	'stack'
+      8	0000  1000*(??)			     DB	4096 DUP (?)
+      9	1000			     MYSTACK ENDS
+     10
+     11				     EXTRN DISPL: FAR
+     12				     EXTRN SUM:	FAR
+     13	0000			     COD1 SEGMENT PARA PUBLIC 'CODE'
+     14				     EXTRN SUM:	FAR
+*Warning* lab0911.ASM(14) Symbol already defined elsewhere: SUM
+     15	0000			     MOD11 PROC	FAR
+     16				     ASSUME CS:COD1, DS:DATA, SS:MYSTACK, ES:NOTHING
+     17
+     18	0000  1E		      PUSH DS ;prepare stack
+     19	0001  2B C0		      SUB AX, AX ;to return
+     20	0003  50		      PUSH AX ;	to DOS
+     21	0004  B8 0000s		      MOV AX, DATA ; load register
+     22	0007  8E D8		      MOV DS, AX
+     23
+     24	0009  BB 0000r		     LEA BX, STRING
+     25	000C  8B 0E 0005r	     MOV CX, LEN
+     26
+     27	0010  9A 00000000se	     CALL SUM
+     28	0015  50		     PUSH AX
+     29	0016  9A 00000000se	     CALL DISPL
+     30	001B  CB		     RET
+     31	001C			     MOD11 ENDP
+     32	001C			     COD1 ENDS
+     33				     END MOD11
+Turbo Assembler	 Version 3.0	    04/23/21 22:39:58	    Page 2
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "04/23/21"
+??FILENAME			  Text	 "lab0911 "
+??TIME				  Text	 "22:39:58"
+??VERSION			  Number 0300
+@CPU				  Text	 0101H
+@CURSEG				  Text	 COD1
+@FILENAME			  Text	 LAB0911
+@WORDSIZE			  Text	 2
+DISPL				  Far	 ----:---- Extern
+LEN				  Word	 DATA:0005
+MOD11				  Far	 COD1:0000
+STRING				  Byte	 DATA:0000
+SUM				  Far	 ----:---- Extern
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+COD1				  16  001C Para	  Public  CODE
+DATA				  16  0007 Para	  Public  DATA
+MYSTACK				  16  1000 Para	  Stack	  STACK
+Turbo Assembler	 Version 3.0	    04/23/21 22:39:58	    Page 3
+Error Summary
+
+
+
+*Warning* lab0911.ASM(14) Symbol already defined elsewhere: SUM
+
